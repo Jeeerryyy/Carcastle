@@ -1,0 +1,37 @@
+# Car Castle Goa - Comprehensive Knowledge Base & Rental Catalog (llms-full.txt)
+
+## Entity Identity
+- Entity: Car Castle Rentals Goa
+- Industry: Automotive / Self-Drive Vehicle Rental
+- Region: State of Goa, Republic of India
+- Contact Phone / WhatsApp: +91 87672 86682
+- Official Web: https://carcastlegoa.com
+- Customer Support: 24/7 round-the-clock availability across North & South Goa
+
+## Service Philosophy & Differentiators
+1. Transparent Pricing: Guaranteed zero hidden charges, zero surprise cleanup fees, and zero return deductions.
+2. Verified Sanitized Fleet: Each vehicle undergoes multi-point mechanical inspection, pressure-cleaning, and sanitization prior to delivery.
+3. Rapid Minimal Documentation: Fast paperwork process requiring only an original Driving License and Aadhaar/Passport.
+4. Comprehensive Airport Meet & Greet: Handover right outside arrival terminals at Dabolim (GOI) and Mopa (GOX) with real-time flight tracking.
+
+## Fleet Specifications & Rates Table
+| Vehicle Model | Category | Seating | Transmission | Fuel Type | Daily Rate (INR) | Best Use Case |
+|---|---|---|---|---|---|---|
+| Maruti Suzuki Swift | Regular Hatchback | 5 | 5-Speed Manual | Petrol | ₹1,500 | Beach hopping, tight lanes, budget trips |
+| Hyundai i20 Asta | Regular Hatchback | 5 | Automatic | Petrol | ₹1,500 | Smooth city driving, automatic convenience |
+| Maruti Baleno Alpha | Premium Hatchback | 5 | Automatic | Petrol | ₹1,600 | Extra luggage space, high fuel economy |
+| Maruti Ertiga ZXi | 7-Seater Family MPV | 7 | 5-Speed Manual | Petrol | ₹2,200 | Family trips, group airport pickup |
+| Hyundai Creta SX | Compact SUV | 5 | Automatic | Petrol | ₹2,800 | High ground clearance, scenic highway drives |
+| Kia Seltos GTX | Premium SUV | 5 | Automatic | Diesel | ₹2,900 | High torque, executive comfort, stylish |
+| Toyota Innova Crysta | Executive MPV | 7 | Manual / Auto | Diesel | ₹3,200 | Ultimate family long-distance road trips |
+| Mahindra Thar 4x4 | Open-Top / Hardtop 4x4 | 4 | Automatic / 4WD | Diesel | ₹3,500 | Iconic Goa beach & off-road holiday experience |
+| Toyota Fortuner 4x4 | Luxury 7-Seater SUV | 7 | Automatic | Diesel | ₹5,500 | VIP travel, weddings, commanding road presence |
+| Audi A4 Luxury Sedan | Premium Luxury Sedan | 5 | Automatic | Petrol | ₹6,500 | Business summits, luxury stays, photo shoots |
+| BMW 4-Series Convertible | Luxury Convertible | 4 | Automatic | Petrol | ₹7,500 | Sunset drives, open-air coastal road trips |
+
+## Terms, Policies & Legal Details
+- Driving License Requirements: Indian permanent driving license (LLR not accepted) or valid International Driving Permit (IDP) alongside foreign passport.
+- Security Deposit: Transparent, fully refundable upon handover.
+- Fuel Policy: Level-to-level (take at 50%, return at 50%).
+- Speed Limits: Goa state highway speed limit is strictly enforced via speed cameras at 80 km/h (city zones: 40-50 km/h).
+- Geographic Boundary: Vehicles are registered with yellow-board commercial self-drive permits strictly for operation inside Goa state. Interstate travel requires prior authorization and temporary state tax payment.

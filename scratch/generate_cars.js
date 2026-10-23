@@ -1,0 +1,604 @@
+const fs = require('fs');
+const path = require('path');
+
+const cars = [
+  {
+    name: "Mahindra Thar 4x4",
+    slug: "mahindra-thar-rental-goa",
+    filename: "mahindra-thar-rental-goa.html",
+    brand: "Mahindra",
+    model: "Thar 4x4 AT/MT",
+    category: "Premium 4x4 SUV",
+    badge: "Iconic Off-Roader",
+    price: "3,500",
+    image: "images/mahindra-thar-4x4.webp",
+    alt: "Mahindra Thar 4x4 self drive car rental in Goa",
+    seats: "4 Passengers",
+    transmission: "Automatic / Manual 4x4",
+    fuel: "2.2L mHawk Diesel",
+    ac: "Powerful Climate Control",
+    luggage: "2 Suitcases",
+    desc: "Experience Goa with the legendary Mahindra Thar 4x4. Hardtop comfort, high ground clearance, commanding road stance, and open-road freedom across coastal highways and beach spots.",
+    bestFor: "Couples, photographers, adventure road trips, and exploring scenic coastal Goa."
+  },
+  {
+    name: "Maruti Suzuki Swift",
+    slug: "maruti-swift-rental-goa",
+    filename: "maruti-swift-rental-goa.html",
+    brand: "Maruti Suzuki",
+    model: "Swift ZXi",
+    category: "Regular Hatchback",
+    badge: "Popular Hatchback",
+    price: "1,500",
+    image: "images/maruti-suzuki-swift-zxi.webp",
+    alt: "Maruti Suzuki Swift self drive car rental in Goa",
+    seats: "5 Passengers",
+    transmission: "5-Speed Manual",
+    fuel: "1.2L K-Series Petrol",
+    ac: "High-Power AC",
+    luggage: "2 Suitcases",
+    desc: "The Maruti Suzuki Swift is Goa's favorite fuel-efficient hatchback. Perfect for navigating narrow village lanes, beach roads, and crowded markets in Calangute, Baga, and Panjim.",
+    bestFor: "Budget-conscious travelers, couples, and easy parking across Goa."
+  },
+  {
+    name: "Toyota Fortuner 4x4",
+    slug: "toyota-fortuner-rental-goa",
+    filename: "toyota-fortuner-rental-goa.html",
+    brand: "Toyota",
+    model: "Fortuner 4x4 AT",
+    category: "Luxury 7-Seater",
+    badge: "Luxury 7-Seater",
+    price: "5,500",
+    image: "images/toyota-fortuner-4x4.webp",
+    alt: "Toyota Fortuner 4x4 luxury 7-seater self drive rental in Goa",
+    seats: "7 Passengers",
+    transmission: "6-Speed Automatic / 4WD",
+    fuel: "2.8L Turbo Diesel",
+    ac: "Dual AC Climate Control",
+    luggage: "4 Large Suitcases",
+    desc: "Command respect on every road with the powerful Toyota Fortuner 4x4. Boasting unmatched road presence, plush leather seating, and serious off-road capability for Goa's luxury holidaymakers.",
+    bestFor: "VIP arrivals, destination weddings, luxury group trips, and executive road travel."
+  },
+  {
+    name: "Toyota Innova Crysta",
+    slug: "toyota-innova-crysta-rental-goa",
+    filename: "toyota-innova-crysta-rental-goa.html",
+    brand: "Toyota",
+    model: "Innova Crysta",
+    category: "Executive MPV",
+    badge: "Executive MPV",
+    price: "3,200",
+    image: "images/toyota-innova-crysta.webp",
+    alt: "Toyota Innova Crysta 7-seater self drive car rental in Goa",
+    seats: "7 Passengers",
+    transmission: "Manual / Automatic",
+    fuel: "2.4L Diesel",
+    ac: "Dual AC Rear Vents",
+    luggage: "5 Suitcases",
+    desc: "Renowned as India's ultimate touring vehicle, the Toyota Innova Crysta delivers first-class comfort, abundant luggage capacity, and supreme reliability for large families visiting Goa.",
+    bestFor: "Extended families, airport pick-ups with heavy luggage, and full-day sightseeing."
+  },
+  {
+    name: "Audi A4 Luxury Sedan",
+    slug: "audi-a4-luxury-rental-goa",
+    filename: "audi-a4-luxury-rental-goa.html",
+    brand: "Audi",
+    model: "A4 Technology",
+    category: "Luxury Sedan",
+    badge: "Luxury Sedan",
+    price: "6,500",
+    image: "images/audi-a4-sedan.webp",
+    alt: "Audi A4 luxury sedan self drive rental in Goa",
+    seats: "5 Passengers",
+    transmission: "7-Speed S-Tronic Auto",
+    fuel: "2.0L TFSI Turbo Petrol",
+    ac: "3-Zone Automatic Climate",
+    luggage: "3 Suitcases",
+    desc: "Arrive in sophisticated German elegance with the Audi A4 Sedan. Featuring a virtual cockpit, sunroof, premium sound system, and whisper-quiet highway ride across Goa.",
+    bestFor: "Business conferences, romantic couple getaways, and luxury resort stays."
+  },
+  {
+    name: "BMW 4-Series Convertible",
+    slug: "bmw-4-series-convertible-rental-goa",
+    filename: "bmw-4-series-convertible-rental-goa.html",
+    brand: "BMW",
+    model: "4-Series Convertible",
+    category: "Convertible Luxury",
+    badge: "Convertible Luxury",
+    price: "7,500",
+    image: "images/bmw-4-series-convertible.webp",
+    alt: "BMW 4-Series Convertible luxury self drive rental in Goa",
+    seats: "4 Passengers",
+    transmission: "8-Speed Steptronic Auto",
+    fuel: "TwinPower Turbo Petrol",
+    ac: "Dual-Zone Climate Control",
+    luggage: "2 Suitcases",
+    desc: "Drop the top and feel the fresh Arabian Sea breeze. The BMW 4-Series Convertible offers the pinnacle of coastal driving glamour, perfect for sunset cruises along North Goa's scenic shores.",
+    bestFor: "Sunset coastal drives, honeymooners, photography, and luxury weekend getaways."
+  },
+  {
+    name: "Hyundai Creta SX",
+    slug: "hyundai-creta-rental-goa",
+    filename: "hyundai-creta-rental-goa.html",
+    brand: "Hyundai",
+    model: "Creta SX AT",
+    category: "Compact SUV",
+    badge: "Compact SUV",
+    price: "2,800",
+    image: "images/hyundai-creta-sx.webp",
+    alt: "Hyundai Creta SX automatic SUV rental in Goa",
+    seats: "5 Passengers",
+    transmission: "Automatic",
+    fuel: "1.5L MPi Petrol",
+    ac: "Automatic Climate Control",
+    luggage: "3 Suitcases",
+    desc: "A perennial favorite for Goa road trips, the Hyundai Creta SX combines high ground clearance, panoramic sunroof, automatic gearbox, and modern infotainment for effortless family travel.",
+    bestFor: "Families, beach hopping with gear, and comfortable all-round Goa exploring."
+  },
+  {
+    name: "Maruti Baleno Alpha",
+    slug: "maruti-baleno-rental-goa",
+    filename: "maruti-baleno-rental-goa.html",
+    brand: "Maruti Suzuki",
+    model: "Baleno Alpha",
+    category: "Premium Hatchback",
+    badge: "Premium Hatchback",
+    price: "1,600",
+    image: "images/maruti-baleno-alpha.webp",
+    alt: "Maruti Baleno Alpha automatic self drive car rental in Goa",
+    seats: "5 Passengers",
+    transmission: "Automatic (AGS)",
+    fuel: "1.2L DualJet Petrol",
+    ac: "Automatic AC",
+    luggage: "2 Suitcases",
+    desc: "Generous cabin room, high fuel economy, and smooth automatic transmission make the Baleno Alpha an outstanding budget-friendly rental for couples and small groups.",
+    bestFor: "Easy parking, city driving in Panjim/Margao, and economical coastal exploring."
+  },
+  {
+    name: "Maruti Ertiga ZXi",
+    slug: "maruti-ertiga-7-seater-rental-goa",
+    filename: "maruti-ertiga-7-seater-rental-goa.html",
+    brand: "Maruti Suzuki",
+    model: "Ertiga ZXi",
+    category: "7-Seater Family",
+    badge: "7-Seater Family",
+    price: "2,200",
+    image: "images/maruti-ertiga-zxi.webp",
+    alt: "Maruti Ertiga 7-seater family self drive car rental in Goa",
+    seats: "7 Passengers",
+    transmission: "5-Speed Manual",
+    fuel: "1.5L Smart Hybrid Petrol",
+    ac: "Dual AC Vents",
+    luggage: "3 Suitcases",
+    desc: "The most economical 7-seater rental in Goa. The Maruti Ertiga ZXi comfortably seats up to 7 passengers with smart hybrid fuel efficiency and separate rear air conditioning.",
+    bestFor: "Budget family vacations, friend groups, and airport transit with group luggage."
+  },
+  {
+    name: "Hyundai i20 Asta",
+    slug: "hyundai-i20-rental-goa",
+    filename: "hyundai-i20-rental-goa.html",
+    brand: "Hyundai",
+    model: "i20 Asta IVT",
+    category: "Regular Hatchback",
+    badge: "Regular Hatchback",
+    price: "1,500",
+    image: "images/hyundai-i20-asta.webp",
+    alt: "Hyundai i20 Asta automatic hatchback rental in Goa",
+    seats: "5 Passengers",
+    transmission: "Automatic (IVT)",
+    fuel: "1.2L Kappa Petrol",
+    ac: "Fully Automatic AC",
+    luggage: "2 Suitcases",
+    desc: "Premium interior styling, smooth automatic transmission, touchscreen infotainment, and sporty handling. The Hyundai i20 Asta makes urban and coastal driving in Goa pure pleasure.",
+    bestFor: "Couples, small families, smooth city navigation, and beach journeys."
+  },
+  {
+    name: "Kia Seltos GTX",
+    slug: "kia-seltos-rental-goa",
+    filename: "kia-seltos-rental-goa.html",
+    brand: "Kia",
+    model: "Seltos GTX Plus",
+    category: "Premium SUV",
+    badge: "Premium SUV",
+    price: "2,900",
+    image: "images/kia-seltos-gtx.webp",
+    alt: "Kia Seltos GTX diesel automatic SUV rental in Goa",
+    seats: "5 Passengers",
+    transmission: "6-Speed Automatic",
+    fuel: "1.5L CRDi Turbo Diesel",
+    ac: "Dual Zone Auto AC",
+    luggage: "3 Suitcases",
+    desc: "Stand out with the bold, aggressive styling of the Kia Seltos GTX. High torque diesel engine, heads-up display, ventilated seats, and expansive ground clearance make it a top pick in Goa.",
+    bestFor: "Style-conscious travelers, long road trips, and modern SUV comfort."
+  }
+];
+
+function generateCarHTML(car) {
+  const cleanPrice = car.price.replace(',', '');
+  return `<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>${car.name} Rental Goa | Self Drive @ ₹${car.price}/Day</title>
+  <meta name="description" content="Rent a self drive ${car.name} in Goa at ₹${car.price}/day. Free delivery to Dabolim & Mopa Airport, Calangute, and Panjim. Instant WhatsApp booking!" />
+  <link rel="canonical" href="https://carcastlegoa.com/cars/${car.filename}" />
+  <meta name="theme-color" content="#0f172a" />
+
+  <!-- Verification Placeholders -->
+  <meta name="google-site-verification" content="[YOUR_GOOGLE_SEARCH_CONSOLE_VERIFICATION_CODE]" />
+  <meta name="msvalidate.01" content="[YOUR_BING_VERIFICATION_CODE]" />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://carcastlegoa.com/cars/${car.filename}" />
+  <meta property="og:title" content="${car.name} Rental Goa | Self Drive @ ₹${car.price}/Day" />
+  <meta property="og:description" content="Rent a self drive ${car.name} in Goa. ${car.category} with doorstep delivery across North & South Goa." />
+  <meta property="og:image" content="https://carcastlegoa.com/${car.image}" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="${car.name} Rental Goa | Self Drive" />
+  <meta name="twitter:description" content="Rent a self drive ${car.name} in Goa at ₹${car.price}/day. Clean, inspected, with 24/7 delivery." />
+  <meta name="twitter:image" content="https://carcastlegoa.com/${car.image}" />
+
+  <!-- Favicons -->
+  <link rel="icon" type="image/png" sizes="32x32" href="../images/favicons/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="../images/favicons/favicon-16.png" />
+  <link rel="icon" type="image/png" href="../images/favicon.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="../images/apple-touch-icon.png" />
+  <link rel="shortcut icon" href="../images/favicon.ico" />
+  <link rel="stylesheet" href="../css/styles.css" />
+
+  <!-- Schema Markup (JSON-LD) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://carcastlegoa.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "All Cars",
+            "item": "https://carcastlegoa.com/all-cars.html"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "${car.name}",
+            "item": "https://carcastlegoa.com/cars/${car.filename}"
+          }
+        ]
+      },
+      {
+        "@type": "Vehicle",
+        "@id": "https://carcastlegoa.com/cars/${car.filename}#car",
+        "name": "${car.name} Self Drive Rental Goa",
+        "vehicleModelDate": "2024",
+        "brand": {
+          "@type": "Brand",
+          "name": "${car.brand}"
+        },
+        "model": "${car.model}",
+        "image": "https://carcastlegoa.com/${car.image}",
+        "description": "${car.desc}",
+        "seatingCapacity": ${parseInt(car.seats)},
+        "vehicleTransmission": "${car.transmission}",
+        "fuelType": "${car.fuel}",
+        "offers": {
+          "@type": "Offer",
+          "priceCurrency": "INR",
+          "price": "${cleanPrice}",
+          "priceValidUntil": "2026-12-31",
+          "availability": "https://schema.org/InStock",
+          "seller": {
+            "@type": "AutoRental",
+            "name": "Car Castle Rentals Goa",
+            "telephone": "+918767286682",
+            "url": "https://carcastlegoa.com"
+          }
+        }
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "How much does it cost to rent ${car.name} in Goa?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Renting a self-drive ${car.name} from Car Castle Goa costs ₹${car.price} per day (24-hour cycle). The price includes comprehensive insurance, unlimited kilometers inside Goa, and 24/7 roadside assistance."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I get ${car.name} delivered to Dabolim or Mopa Airport?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes, Car Castle delivers ${car.name} directly to Dabolim Airport (GOI), Manohar International Airport Mopa (GOX), or any hotel/resort in Goa at your preferred time."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What documents are required to rent this car in Goa?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "You need an original valid Indian Driving License or an International Driving Permit (IDP) accompanied by an Aadhaar Card or Passport copy. Driver must be at least 21 years old."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header-nav">
+    <div class="nav-wrapper">
+      <a href="../index.html" class="nav-brand"><img src="../images/logo.png" alt="Car Castle Goa Logo" class="logo-img" /></a>
+      <nav class="nav-links">
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="../all-cars.html" class="nav-link active">All Cars</a>
+        <a href="../about.html" class="nav-link">About</a>
+        <a href="../contact.html" class="nav-link">Contact</a>
+      </nav>
+      <div class="nav-actions">
+        <a href="https://wa.me/918767286682?text=Hi%20Car%20Castle%20Goa%2C%20I%20want%20to%20book%20${encodeURIComponent(car.name)}%20at%20%E2%82%B9${encodeURIComponent(car.price)}%2Fday" target="_blank" rel="noopener noreferrer" class="btn-whatsapp">Book via WhatsApp</a>
+      </div>
+      <button id="mobile-toggle" class="mobile-toggle" aria-label="Toggle Navigation Menu">
+        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div id="mobile-drawer" class="mobile-drawer">
+    <div style="margin-bottom: 1.25rem; padding-bottom: 0.75rem; border-bottom: 1px solid rgba(255, 255, 255, 0.12);">
+      <a href="../index.html">
+        <img src="../images/logo.png" alt="Car Castle Logo" style="height: 36px; width: auto; filter: brightness(0) invert(1);" />
+      </a>
+    </div>
+    <a href="../index.html" class="nav-link">Home</a>
+    <a href="../all-cars.html" class="nav-link">All Cars</a>
+    <a href="../about.html" class="nav-link">About</a>
+    <a href="../contact.html" class="nav-link">Contact</a>
+  </div>
+
+  <!-- Breadcrumbs -->
+  <nav class="breadcrumbs" aria-label="Breadcrumb">
+    <div class="container">
+      <ol class="breadcrumb-list">
+        <li class="breadcrumb-item"><a href="../index.html">Home</a></li>
+        <li class="breadcrumb-separator">/</li>
+        <li class="breadcrumb-item"><a href="../all-cars.html">Cars</a></li>
+        <li class="breadcrumb-separator">/</li>
+        <li class="breadcrumb-item current" aria-current="page">${car.name}</li>
+      </ol>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="car-detail-wrapper">
+    <div class="container">
+      <div class="car-detail-grid">
+        <!-- Left: Image & Specs -->
+        <div>
+          <div class="car-detail-gallery">
+            <img src="../${car.image}" alt="${car.alt}" class="car-detail-main-img" width="800" height="450" loading="eager" fetchpriority="high" />
+          </div>
+
+          <h1 style="font-size: 2.25rem; font-weight: 800; color: var(--primary); margin: 1.5rem 0 0.5rem; letter-spacing: -0.02em;">
+            ${car.name} Self Drive Rental in Goa
+          </h1>
+          <p style="font-size: 1.05rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 1.5rem;">
+            ${car.desc} Best suited for <strong>${car.bestFor}</strong>. Sanitized and safety-inspected before handover.
+          </p>
+
+          <!-- Quick Facts / AEO Answer Summary -->
+          <div class="quick-facts-box">
+            <div class="quick-facts-header">
+              <svg width="22" height="22" fill="none" stroke="var(--secondary)" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+              <h2 class="quick-facts-title">${car.name} Rental Summary (Goa)</h2>
+            </div>
+            <div class="quick-facts-grid">
+              <div class="fact-item">
+                <span class="fact-label">Daily Tariff</span>
+                <span class="fact-val">₹${car.price} / 24 Hours</span>
+              </div>
+              <div class="fact-item">
+                <span class="fact-label">Transmission</span>
+                <span class="fact-val">${car.transmission}</span>
+              </div>
+              <div class="fact-item">
+                <span class="fact-label">Fuel Type</span>
+                <span class="fact-val">${car.fuel}</span>
+              </div>
+              <div class="fact-item">
+                <span class="fact-label">Seating</span>
+                <span class="fact-val">${car.seats}</span>
+              </div>
+              <div class="fact-item">
+                <span class="fact-label">Delivery</span>
+                <span class="fact-val">Airport &amp; Doorstep</span>
+              </div>
+              <div class="fact-item">
+                <span class="fact-label">Kilometers</span>
+                <span class="fact-val">Unlimited across Goa</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Specifications Matrix -->
+          <h2 style="font-size: 1.5rem; font-weight: 700; color: var(--primary); margin: 2rem 0 1rem;">Vehicle Specifications</h2>
+          <div class="car-spec-matrix">
+            <div class="spec-matrix-item">
+              <svg class="spec-matrix-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+              <div>
+                <div style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase;">Seating</div>
+                <div style="font-weight: 700; color: var(--primary);">${car.seats}</div>
+              </div>
+            </div>
+            <div class="spec-matrix-item">
+              <svg class="spec-matrix-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg>
+              <div>
+                <div style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase;">Gearbox</div>
+                <div style="font-weight: 700; color: var(--primary);">${car.transmission}</div>
+              </div>
+            </div>
+            <div class="spec-matrix-item">
+              <svg class="spec-matrix-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+              <div>
+                <div style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase;">Engine / Fuel</div>
+                <div style="font-weight: 700; color: var(--primary);">${car.fuel}</div>
+              </div>
+            </div>
+            <div class="spec-matrix-item">
+              <svg class="spec-matrix-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+              <div>
+                <div style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase;">Air Conditioning</div>
+                <div style="font-weight: 700; color: var(--primary);">${car.ac}</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Frequently Asked Questions (AEO & Voice Search) -->
+          <section style="margin-top: 3rem;">
+            <h2 style="font-size: 1.5rem; font-weight: 700; color: var(--primary); margin-bottom: 1.25rem;">
+              Frequently Asked Questions About ${car.name} Rental
+            </h2>
+            <div class="faq-container">
+              <div class="faq-item">
+                <button class="faq-button">
+                  <span>How much does it cost to rent ${car.name} in Goa?</span>
+                  <svg class="faq-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </button>
+                <div class="faq-answer">
+                  Renting a self-drive ${car.name} from Car Castle Goa costs ₹${car.price} per day (24-hour cycle). The price includes comprehensive insurance, unlimited kilometers inside Goa, and 24/7 roadside assistance.
+                </div>
+              </div>
+              <div class="faq-item">
+                <button class="faq-button">
+                  <span>Can I get ${car.name} delivered to Dabolim or Mopa Airport?</span>
+                  <svg class="faq-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </button>
+                <div class="faq-answer">
+                  Yes, Car Castle delivers ${car.name} directly to Dabolim Airport (GOI), Manohar International Airport Mopa (GOX), or any hotel/resort in Goa at your preferred time.
+                </div>
+              </div>
+              <div class="faq-item">
+                <button class="faq-button">
+                  <span>What documents are required to rent this car in Goa?</span>
+                  <svg class="faq-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </button>
+                <div class="faq-answer">
+                  You need an original valid Indian Driving License or an International Driving Permit (IDP) accompanied by an Aadhaar Card or Passport copy. Driver must be at least 21 years old.
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <!-- Right: Booking Card & Policy Inclusions -->
+        <aside>
+          <div class="car-booking-sidebar">
+            <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid #e2e8f0; padding-bottom: 1rem; margin-bottom: 1.25rem;">
+              <div>
+                <span style="font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600;">Daily Rental Rate</span>
+                <div style="font-size: 2rem; font-weight: 800; color: var(--primary);">₹${car.price} <span style="font-size: 0.95rem; font-weight: 500; color: var(--text-muted);">/ day</span></div>
+              </div>
+              <span class="car-badge" style="position: static;">${car.badge}</span>
+            </div>
+
+            <h3 style="font-size: 1.1rem; font-weight: 700; color: var(--primary); margin-bottom: 0.5rem;">Included with your booking:</h3>
+            <ul class="car-inclusions-list">
+              <li class="car-inclusion-item">
+                <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
+                <span>Zero Hidden Fees Guarantee</span>
+              </li>
+              <li class="car-inclusion-item">
+                <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
+                <span>Doorstep &amp; Airport Handover</span>
+              </li>
+              <li class="car-inclusion-item">
+                <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
+                <span>Full Commercial Insurance</span>
+              </li>
+              <li class="car-inclusion-item">
+                <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
+                <span>24/7 Roadside Assistance in Goa</span>
+              </li>
+              <li class="car-inclusion-item">
+                <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
+                <span>Level-to-Level Fuel Policy</span>
+              </li>
+            </ul>
+
+            <a href="https://wa.me/918767286682?text=Hi%20Car%20Castle%20Goa%2C%20I%20want%20to%20book%20the%20${encodeURIComponent(car.name)}%20(%E2%82%B9${encodeURIComponent(car.price)}%2Fday)%20for%20my%20Goa%20trip.%20Please%20confirm%20availability!" target="_blank" rel="noopener noreferrer" class="car-action-btn" data-track-car="${car.name}" style="width: 100%; justify-content: center; font-size: 1rem; padding: 0.95rem;">
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 448 512"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"></path></svg>
+              Book on WhatsApp
+            </a>
+
+            <div style="margin-top: 1.25rem; font-size: 0.85rem; color: var(--text-muted); text-align: center; line-height: 1.5;">
+              ⚡ Instant confirmation &bull; Minimum age 21 &bull; Original Driving License required
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-grid">
+      <div>
+        <img src="../images/logo.png" alt="Car Castle Goa Logo" class="footer-logo" />
+        <p class="footer-about">Car Castle is Goa's trusted self-drive car rental provider. Doorstep delivery across North &amp; South Goa.</p>
+      </div>
+      <div>
+        <h4 class="footer-heading">Quick Links</h4>
+        <ul class="footer-links">
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="../all-cars.html">All Cars</a></li>
+          <li><a href="../reg-cars.html">Regular Cars</a></li>
+          <li><a href="../prem-cars.html">Premium Cars</a></li>
+          <li><a href="../about.html">About Us</a></li>
+          <li><a href="../contact.html">Contact Us</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer-heading">Contact Us</h4>
+        <div class="footer-contact-item"><span>Location: Panjim, Calangute, Dabolim &amp; Mopa Airport, Goa</span></div>
+        <div class="footer-contact-item"><span>Phone: <a href="tel:+918767286682" style="color: inherit;">+91 87672 86682</a></span></div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Car Castle Rentals Goa. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+  <script src="../js/analytics.js"></script>
+</body>
+</html>`;
+}
+
+const outDir = path.join(__dirname, '..', 'carcastlegoa', 'cars');
+if (!fs.existsSync(outDir)) fs.mkdirSync(outDir, { recursive: true });
+
+cars.forEach(car => {
+  const filePath = path.join(outDir, car.filename);
+  fs.writeFileSync(filePath, generateCarHTML(car), 'utf8');
+  console.log(`Generated: ${car.filename}`);
+});
+
+console.log('All 10 remaining car landing pages generated successfully!');

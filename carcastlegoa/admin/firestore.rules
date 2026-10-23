@@ -1,0 +1,42 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper functions for authorization and data integrity
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      // Allows admin access via custom claims or when UID matches designated admin UID or document owner
+      return isAuthenticated() && (
+        request.auth.token.admin == true ||
+        request.auth.token.email == "admin@carcastlegoa.com" ||
+        exists(/databases/$(database)/documents/settings/admins/$(request.auth.uid))
+      );
+    }
+
+    function isValidCarData() {
+      let data = request.resource.data;
+      return data.name is string && data.name.size() > 0 &&
+             data.category is string &&
+             data.pricePerDay is number && data.pricePerDay > 0 &&
+             data.slug is string;
+    }
+
+    // Cars collection:
+    // Anyone (including public website visitors) can read active vehicles.
+    // Only authorized admins can create, update, or delete vehicles.
+    match /cars/{carId} {
+      allow read: if true;
+      allow create, update: if isAdmin() && isValidCarData();
+      allow delete: if isAdmin();
+    }
+
+    // Admin settings / metadata / fleet configurations:
+    // Strictly restricted to authorized admins.
+    match /settings/{settingId} {
+      allow read, write: if isAdmin();
+    }
+  }
+}

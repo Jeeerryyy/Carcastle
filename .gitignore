@@ -1,0 +1,29 @@
+# Node & Packages
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment & Secrets
+.env
+.env.local
+.env.*.local
+*.key
+*.pem
+
+# OS & Editor Files
+.DS_Store
+Thumbs.db
+desktop.ini
+ehthumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Temporary & Build Artifacts
+*.zip
+*.tar.gz
+*.log
+.system_generated/
+scratch/test-*.js

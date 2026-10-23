@@ -1,0 +1,45 @@
+# Robots.txt for Car Castle Goa (https://carcastlegoa.com)
+# Self-Drive Car Rental Service across Goa, India
+
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /crm/
+Disallow: /api/
+Disallow: /cart/
+Disallow: /checkout/
+Disallow: /tmp/
+Disallow: /*?*
+
+# Allow static CSS/JS/images with query strings (e.g. cache busters)
+Allow: /*.css$
+Allow: /*.js$
+Allow: /*.webp$
+Allow: /*.png$
+Allow: /*.jpg$
+Allow: /*.svg$
+
+# Allow Generative Engine & AI Search Crawlers (GEO / AEO)
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+# Reference XML Sitemap & LLM Knowledge Document
+Sitemap: https://carcastlegoa.com/sitemap.xml

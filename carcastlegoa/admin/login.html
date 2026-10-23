@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Login | Car Castle Rentals Goa</title>
+  <meta name="description" content="Car Castle Goa Admin Login - Secure portal for vehicle fleet management." />
+  <link rel="canonical" href="https://carcastlegoa.com/admin/login.html" />
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="icon" type="image/png" sizes="32x32" href="../images/favicons/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="../images/favicons/favicon-16.png" />
+  <link rel="shortcut icon" href="../images/favicon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/admin.css" />
+
+  <style>
+    /* ==========================================================================
+       Self-Contained, Bulletproof Login Styles
+       ========================================================================== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background-color: #0f172a;
+      background-image: 
+        radial-gradient(at 0% 0%, rgba(30, 41, 59, 0.7) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(15, 23, 42, 0.9) 0px, transparent 50%);
+      color: #0f172a;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 16px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .login-container {
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .login-box {
+      background: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      box-shadow: 
+        0 20px 25px -5px rgba(0, 0, 0, 0.3),
+        0 8px 10px -6px rgba(0, 0, 0, 0.2);
+      padding: 32px 28px;
+    }
+
+    .login-header {
+      margin-bottom: 24px;
+      text-align: center;
+    }
+
+    .login-brand {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 14px;
+    }
+
+    .login-logo {
+      height: 38px;
+      width: auto;
+      display: block;
+    }
+
+    .login-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: #0f172a;
+      line-height: 1.2;
+      margin-bottom: 4px;
+    }
+
+    .login-subtitle {
+      font-size: 13px;
+      color: #64748b;
+    }
+
+    /* Error Alert Banner */
+    .login-alert {
+      padding: 10px 14px;
+      background-color: #fef2f2;
+      border: 1px solid #fecaca;
+      border-radius: 6px;
+      color: #dc2626;
+      font-size: 13px;
+      font-weight: 500;
+      margin-bottom: 18px;
+      display: none;
+      line-height: 1.4;
+    }
+
+    /* Form Fields */
+    .form-group {
+      margin-bottom: 18px;
+      text-align: left;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: #0f172a;
+      margin-bottom: 6px;
+    }
+
+    .required-star {
+      color: #dc2626;
+      margin-left: 2px;
+    }
+
+    .form-input {
+      width: 100%;
+      height: 44px;
+      padding: 10px 14px;
+      font-size: 14px;
+      font-family: inherit;
+      background-color: #ffffff;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 6px;
+      color: #0f172a;
+      outline: none;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+      display: block;
+    }
+
+    .form-input:focus {
+      border-color: #0f172a;
+      box-shadow: 0 0 0 3px rgba(15, 23, 42, 0.08);
+    }
+
+    .form-input.is-invalid {
+      border-color: #dc2626 !important;
+      background-color: #fffbfa !important;
+    }
+
+    /* Password Input with Show/Hide Button */
+    .password-field-wrapper {
+      position: relative;
+      width: 100%;
+    }
+
+    .password-field-wrapper .form-input {
+      padding-right: 64px;
+    }
+
+    .password-toggle {
+      position: absolute;
+      right: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      height: 28px;
+      padding: 0 10px;
+      background-color: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #475569;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.12s ease;
+      user-select: none;
+    }
+
+    .password-toggle:hover {
+      background-color: #e2e8f0;
+      color: #0f172a;
+    }
+
+    /* Error Message: strictly hidden until activated */
+    .form-error-msg {
+      font-size: 12px;
+      color: #dc2626;
+      margin-top: 5px;
+      font-weight: 500;
+      display: none;
+    }
+
+    /* Remember Me Row */
+    .remember-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 18px 0 20px 0;
+      font-size: 13px;
+    }
+
+    .remember-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #475569;
+      cursor: pointer;
+      user-select: none;
+      font-weight: 500;
+    }
+
+    .remember-label input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      accent-color: #0f172a;
+      cursor: pointer;
+    }
+
+    /* Submit Button */
+    .btn-login-submit {
+      width: 100%;
+      height: 44px;
+      background-color: #0f172a;
+      color: #ffffff;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 600;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: background-color 0.15s ease, opacity 0.15s ease;
+      box-shadow: 0 2px 4px rgba(15, 23, 42, 0.15);
+    }
+
+    .btn-login-submit:hover:not(:disabled) {
+      background-color: #1e293b;
+    }
+
+    .btn-login-submit:disabled {
+      opacity: 0.65;
+      cursor: not-allowed;
+    }
+
+    /* Spinner */
+    .spinner {
+      width: 15px;
+      height: 15px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-top-color: #ffffff;
+      border-radius: 50%;
+      animation: spin 0.6s linear infinite;
+      display: inline-block;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Divider */
+    .demo-mode-divider {
+      position: relative;
+      text-align: center;
+      margin: 22px 0 16px 0;
+    }
+
+    .demo-mode-divider::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      border-top: 1px solid #e2e8f0;
+    }
+
+    .demo-mode-divider span {
+      position: relative;
+      background: #ffffff;
+      padding: 0 12px;
+      font-size: 11px;
+      font-weight: 600;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* Demo Mode Button */
+    .btn-demo-mode {
+      width: 100%;
+      height: 40px;
+      background-color: #f8fafc;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 6px;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 600;
+      color: #334155;
+      cursor: pointer;
+      transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .btn-demo-mode:hover {
+      background-color: #f1f5f9;
+      border-color: #94a3b8;
+      color: #0f172a;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="login-container">
+    
+    <div class="login-box">
+      
+      <div class="login-header">
+        <div class="login-brand">
+          <img src="../images/logo.png" alt="Car Castle Goa" class="login-logo" />
+        </div>
+        <h1 class="login-title">Car Castle Admin</h1>
+        <p class="login-subtitle">Sign in to manage your rental fleet</p>
+      </div>
+
+      <!-- Error Alert Banner -->
+      <div id="login-alert" class="login-alert" role="alert" style="display: none;"></div>
+
+      <form id="admin-login-form" novalidate>
+        
+        <div class="form-group" id="group-email">
+          <label for="login-email" class="form-label">Email Address <span class="required-star">*</span></label>
+          <input 
+            type="email" 
+            id="login-email" 
+            class="form-input" 
+            placeholder="Enter email address" 
+            required 
+            autocomplete="email"
+          />
+          <div class="form-error-msg" id="error-email" style="display: none;">Please enter a valid email address.</div>
+        </div>
+
+        <div class="form-group" id="group-password">
+          <label for="login-password" class="form-label">Password <span class="required-star">*</span></label>
+          <div class="password-field-wrapper">
+            <input 
+              type="password" 
+              id="login-password" 
+              class="form-input" 
+              placeholder="Enter password" 
+              required 
+              autocomplete="current-password"
+            />
+            <button type="button" id="btn-toggle-password" class="password-toggle" aria-label="Toggle password visibility">
+              Show
+            </button>
+          </div>
+          <div class="form-error-msg" id="error-password" style="display: none;">Please enter your password.</div>
+        </div>
+
+        <div class="remember-row">
+          <label class="remember-label">
+            <input type="checkbox" id="login-remember" checked />
+            <span>Keep me signed in</span>
+          </label>
+        </div>
+
+        <button type="submit" class="btn-login-submit" id="btn-login-submit">
+          <span id="login-spinner" class="spinner" style="display: none;"></span>
+          <span id="login-btn-text">Sign In</span>
+        </button>
+
+      </form>
+
+    </div>
+
+  </div>
+
+  <script type="module">
+    import { loginAdmin, getCurrentUser } from './js/auth.js?v=live-v4';
+
+    // If user is already authenticated, redirect straight to dashboard
+    const existing = getCurrentUser();
+    if (existing) {
+      window.location.replace('index.html');
+    }
+
+    const form = document.getElementById('admin-login-form');
+    const emailInput = document.getElementById('login-email');
+    const passwordInput = document.getElementById('login-password');
+    const emailError = document.getElementById('error-email');
+    const passwordError = document.getElementById('error-password');
+    const alertBox = document.getElementById('login-alert');
+    const submitBtn = document.getElementById('btn-login-submit');
+    const btnText = document.getElementById('login-btn-text');
+    const spinner = document.getElementById('login-spinner');
+    const togglePassBtn = document.getElementById('btn-toggle-password');
+
+    // Toggle Password Visibility
+    togglePassBtn.addEventListener('click', () => {
+      const isPass = passwordInput.type === 'password';
+      passwordInput.type = isPass ? 'text' : 'password';
+      togglePassBtn.textContent = isPass ? 'Hide' : 'Show';
+    });
+
+    // Clear inline error state on user input
+    emailInput.addEventListener('input', () => {
+      emailInput.classList.remove('is-invalid');
+      emailError.style.display = 'none';
+    });
+
+    passwordInput.addEventListener('input', () => {
+      passwordInput.classList.remove('is-invalid');
+      passwordError.style.display = 'none';
+    });
+
+    // Form Submission
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      alertBox.style.display = 'none';
+      alertBox.textContent = '';
+
+      let hasError = false;
+      const email = emailInput.value.trim();
+      const password = passwordInput.value;
+
+      if (!email || !email.includes('@')) {
+        emailInput.classList.add('is-invalid');
+        emailError.style.display = 'block';
+        hasError = true;
+      } else {
+        emailInput.classList.remove('is-invalid');
+        emailError.style.display = 'none';
+      }
+
+      if (!password) {
+        passwordInput.classList.add('is-invalid');
+        passwordError.style.display = 'block';
+        hasError = true;
+      } else {
+        passwordInput.classList.remove('is-invalid');
+        passwordError.style.display = 'none';
+      }
+
+      if (hasError) return;
+
+      submitBtn.disabled = true;
+      spinner.style.display = 'inline-block';
+      btnText.textContent = 'Signing in...';
+
+      try {
+        await loginAdmin(email, password);
+        window.location.replace('index.html');
+      } catch (err) {
+        console.error('Login error:', err);
+        alertBox.textContent = err.message || 'Invalid email or password.';
+        alertBox.style.display = 'block';
+        submitBtn.disabled = false;
+        spinner.style.display = 'none';
+        btnText.textContent = 'Sign In';
+      }
+    });
+  </script>
+
+</body>
+</html>
